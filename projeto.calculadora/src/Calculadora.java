@@ -3,10 +3,28 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+
+
+Nome: Diogenes Ferreira da Silva
+RA: 00105528
+
+
+ */
+
 public class Calculadora {
+    private static String textodisplay;
+    private static String limpardisplay = null;
+    private static double primeironumero;
+    private static double segundonumero;
+    private static double resultado;
+    private static String operacao;
+    private static String responder;
+
 
 
     public static void main(String[] args) {
+
 
         try {
             // set look and feel
@@ -20,13 +38,13 @@ public class Calculadora {
 
 
         final int[] leitura = new int[1];
-        int memoria;
-        char operacao;
 
 
         JTextField display = new JTextField();
         display.setBounds(10,11,207,50);
         display.setEditable(false);
+        display.setFont(new Font("Tahoma", Font.BOLD, 20));
+        display.setHorizontalAlignment(display.RIGHT);
 
         // Linha 1
 
@@ -216,6 +234,102 @@ public class Calculadora {
                 display.setText(display.getText() + "0");
             }
         });
+
+        bclear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textodisplay = "";
+                display.setText(textodisplay);
+            }
+        });
+
+        blimpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder apagar = new StringBuilder(display.getText());
+                apagar.deleteCharAt(display.getText().length() -1);
+                limpardisplay = apagar.toString();
+                display.setText((limpardisplay));
+            }
+        });
+
+        bmais.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                primeironumero = Double.parseDouble(display.getText());
+                display.setText("");
+                operacao = "+";
+            }
+        });
+
+        bvezes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                primeironumero = Double.parseDouble(display.getText());
+                display.setText("");
+                operacao = "*";
+            }
+        });
+
+        bdiv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                primeironumero = Double.parseDouble(display.getText());
+                display.setText("");
+                operacao = "/";
+            }
+        });
+
+        bmenos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                primeironumero = Double.parseDouble(display.getText());
+                display.setText("");
+                operacao = "-";
+            }
+        });
+
+        bvirg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                display.setText(display.getText() + ".");
+            }
+        });
+
+        bigual.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String responder;
+                segundonumero = Double.parseDouble(display.getText());
+                if (operacao == "+"){
+
+                    resultado = primeironumero + segundonumero;
+                    responder = String.format("%.2f",resultado);
+                    display.setText(String.valueOf(resultado));
+                }
+                else if (operacao == "-"){
+                    resultado = primeironumero - segundonumero;
+                    responder = String.format("%.2f",resultado);
+                    display.setText(responder);
+                }
+
+                else if (operacao == "/"){
+                    resultado = primeironumero / segundonumero;
+                    responder = String.format("%.2f",resultado);
+                    display.setText(responder);
+                }
+
+                else if (operacao == "*"){
+                    resultado = primeironumero * segundonumero;
+                    responder = String.format("%.2f",resultado);
+                    display.setText(responder);
+                }
+
+
+            }
+        });
+
+
 
 
         tela.setVisible(true);
